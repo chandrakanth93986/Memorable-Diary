@@ -3,15 +3,17 @@
 import React from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import logo from '../../public/logo.webp'
+import Image from 'next/image';
 
 const Navbar = () => {
     const path = usePathname();
 
     return (
         <div>
-            <nav className='b bg-diary p-5 text-white flex justify-between items-center'>
-                <div>
-                    <p>Logo</p>
+            <nav className='bg-diary p-5 text-white flex justify-between items-center'>
+                <div className=''>
+                    <Image src={logo} width={50} height={100} alt='Logo' className='r rounded-full block m-auto' />
                 </div>
                 <div>
                     <ul className='flex items-center gap-14'>

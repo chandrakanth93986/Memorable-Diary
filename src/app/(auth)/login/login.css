@@ -1,0 +1,6 @@
+.reg{
+    background-image: url('../../../../public/auth.jpeg');
+    opacity: 0.5;
+    background-repeat: no-repeat;
+    background-position: top;
+}
