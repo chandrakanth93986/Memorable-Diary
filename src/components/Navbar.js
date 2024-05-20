@@ -5,9 +5,15 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import logo from '../../public/logo.webp'
 import Image from 'next/image';
+import { useSession } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
 
 const Navbar = () => {
     const path = usePathname();
+    const session = useSession();
+    const handleSignout = async() => {
+        await signOut()
+      }
 
     return (
         <div>
@@ -15,19 +21,28 @@ const Navbar = () => {
                 <div className=''>
                     <Image src={logo} width={50} height={100} alt='Logo' className='r rounded-full block m-auto' />
                 </div>
-                <div>
-                    <ul className='flex items-center gap-14'>
-                        <li>
-                            <Link href={'/'} className={`${path === '/' ? 'rounded-lg bg-white text-diary border px-4 py-2' : 'text-white'}`}>Home</Link>
-                        </li>
-                        <li>
-                            <Link href={'/register'} className={`${path === '/register' ? 'rounded-lg bg-white text-diary border px-4 py-2' : 'text-white'}`}>Register</Link>
-                        </li>
-                        <li>
-                            <Link href={'/login'} className={`${path === '/login' ? 'rounded-lg bg-white text-diary border px-4 py-2' : 'text-white'}`}>Login</Link>
-                        </li>
-                    </ul>
-                </div>
+                {
+                    session.status === 'authenticated' ? (
+                        <div className='text-center'>
+                            <button onClick={handleSignout} className='px-4 py-2 bg-white text-diary rounded-md'>Sign Out</button>
+                        </div>
+                    ) : (
+                        <div>
+                            <ul className='flex items-center gap-14'>
+                                <li>
+                                    <Link href={'/'} className={`${path === '/' ? 'rounded-lg bg-white text-diary border px-4 py-2' : 'text-white'}`}>Home</Link>
+                                </li>
+                                <li>
+                                    <Link href={'/register'} className={`${path === '/register' ? 'rounded-lg bg-white text-diary border px-4 py-2' : 'text-white'}`}>Register</Link>
+                                </li>
+                                <li>
+                                    <Link href={'/login'} className={`${path === '/login' ? 'rounded-lg bg-white text-diary border px-4 py-2' : 'text-white'}`}>Login</Link>
+                                </li>
+                            </ul>
+                        </div>
+                    )
+                }
+
             </nav>
         </div>
     )
