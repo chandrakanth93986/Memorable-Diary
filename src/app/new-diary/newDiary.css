@@ -1,0 +1,13 @@
+
+.body-personal{
+    background-image: url(../../../public/bg1.jpeg);
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.diary-form{
+    /* background-color: rgb(245, 240, 240); */
+    background-color: burlywood;
+}

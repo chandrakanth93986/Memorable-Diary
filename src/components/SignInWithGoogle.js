@@ -6,15 +6,12 @@ import { FcGoogle } from 'react-icons/fc';
 import { toast } from 'react-hot-toast';
 
 const SigninWithGoogle = () => {
-    const router = useRouter();
-
     const handleGoogle = async () => {
         try {
-            const response = await signIn('google');
+            const response = await signIn('google',{callbackUrl: '/personal-space'});
             console.log(response)
             if (response?.ok) {
                 toast.success('Signin successful');
-                router.push('/');
             }
             if (response?.error) {
                 toast.error(response.error);

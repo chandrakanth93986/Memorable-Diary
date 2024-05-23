@@ -7,12 +7,15 @@ import logo from '../../public/logo.webp'
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import { signOut } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 const Navbar = () => {
+    const router = useRouter()
     const path = usePathname();
     const session = useSession();
     const handleSignout = async() => {
         await signOut()
+        router.push('/')
       }
 
     return (
