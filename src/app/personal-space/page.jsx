@@ -29,7 +29,7 @@ const PersonalSpace = () => {
         setOpen(true)
         setTimeout(() => {
             router.push('/new-diary')
-        }, 10000);
+        }, 9000);
         setTimeout(() => {
             setOpen(false)
         }, 11000);

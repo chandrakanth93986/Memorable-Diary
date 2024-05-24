@@ -16,6 +16,7 @@ import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
 import { FaCrown } from "react-icons/fa";
 import { FaHandPointRight } from "react-icons/fa";
+import axios from 'axios'
 
 const NewDiary = () => {
     const editor = useRef(null)
@@ -31,18 +32,31 @@ const NewDiary = () => {
     let { register, handleSubmit, formState: { errors } } = useForm()
 
     useEffect(() => {
+        console.log(session)
         if (status === 'unauthenticated') {
             router.push('/login')
         }
     }, [session, status])
 
     const handleFormSubmit = async (formObj) => {
+        if (desc === '') {
+            return toast.error('Please Make Your Diary!')
+        }
         const contentText = Jodit.modules.Helpers.stripTags(desc);
         formObj.favourite = favourite
         formObj.content = contentText
         formObj.publicMode = pub
-
+        formObj.email = session.data?.user?.email
         console.log(formObj)
+        try {
+            const response = await axios.post('/api/new-diary', formObj);
+            if (response.data.success === true || response.status<300) {
+                toast.success(response.data.message)
+            }
+        } catch (error) {
+            console.log(error)
+            toast.error(error.response.data.message)
+        }
     }
 
     const handleCrown = () => {
@@ -109,9 +123,9 @@ const NewDiary = () => {
                     <div className='mx-4 bg-gray-300 h-0.5'></div>
 
                     <div>
-                        {
+                        {/* {
                             errors.content?.type === 'required' && <p className='text-center text-violet-600'>*Please Enter Your Diary!</p>
-                        }
+                        } */}
                         {/* <textarea
                             {...register('content', { required: true })} // Only at the top
                             onChange={handleChanges}
