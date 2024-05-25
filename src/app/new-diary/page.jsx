@@ -9,9 +9,6 @@ import { Jodit } from 'jodit-react'
 const JoditEditor = dynamic(() => import("jodit-react"), {
     ssr: false,
 });
-// const Jodit = dynamic(() => import("jodit-react"), {
-//     ssr: false,
-// });
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
 import { FaCrown } from "react-icons/fa";
@@ -52,6 +49,7 @@ const NewDiary = () => {
             const response = await axios.post('/api/new-diary', formObj);
             if (response.data.success === true || response.status<300) {
                 toast.success(response.data.message)
+                router.push('/diaries/all-diaries')
             }
         } catch (error) {
             console.log(error)
@@ -65,16 +63,9 @@ const NewDiary = () => {
 
     const config = {
         readonly: false, // all options from https://xdsoft.net/jodit/docs/,
-        placeholder: 'Start Your Journey',
+        placeholder: 'Start Your Journey...',
         height: 600
     }
-
-    // const handleChanges = (event) => {
-    //     setText(event.target.value);
-    //     // Dynamically adjust the height of the textarea
-    //     event.target.style.height = 'auto';
-    //     event.target.style.height = event.target.scrollHeight + 'px';
-    // };
 
     const toggleVisibility = () => {
         setPub(!pub)
@@ -103,7 +94,6 @@ const NewDiary = () => {
 
                         <label className="flex items-center cursor-pointer justify-end my-2 md:my-0" >
                             <input
-                                // {...register('publicMode')}
                                 type="checkbox"
                                 value={pub}
                                 className="sr-only peer"
@@ -111,7 +101,7 @@ const NewDiary = () => {
                                 onChange={toggleVisibility}
                             />
                             <div className="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600"></div>
-                            <span className="ms-3 text-2xl font-medium text-gray-700">
+                            <span className="ms-3 text-2xl font-medium text-gray-700 animate-pulse">
                                 Public mode
                             </span>
                         </label>
@@ -123,21 +113,6 @@ const NewDiary = () => {
                     <div className='mx-4 bg-gray-300 h-0.5'></div>
 
                     <div>
-                        {/* {
-                            errors.content?.type === 'required' && <p className='text-center text-violet-600'>*Please Enter Your Diary!</p>
-                        } */}
-                        {/* <textarea
-                            {...register('content', { required: true })} // Only at the top
-                            onChange={handleChanges}
-                            value={text}
-                            style={{
-                                resize: 'none',
-                                overflow: 'hidden',
-                                minHeight: '80vh'
-                            }}
-                            className="block w-full p-4 italic focus:outline-none placeholder:text-xl text-xl"
-                            placeholder="Let's begin today's journey..."
-                        /> */}
                         <div className=''>
                             <JoditEditor
                                 innerRef={editor}
@@ -151,13 +126,13 @@ const NewDiary = () => {
                     <div className='flex justify-between items-center'>
                         <div className='mx-4 flex gap-2 items-center text-xl'>
                             <p>Make Favourite</p>
-                            <FaHandPointRight className='text-3xl' />
+                            <FaHandPointRight className='text-3xl animate-pulse' />
                         </div>
                         <div className='flex gap-2 items-center '>
                             {
                                 favourite === false ? (
                                     <FaCrown
-                                        className={`text-5xl cursor-pointer `}
+                                        className='text-5xl cursor-pointer animate-bounce'
                                         onClick={handleCrown}
                                     />
                                 ) : (

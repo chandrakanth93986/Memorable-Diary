@@ -43,9 +43,9 @@ const PersonalSpace = () => {
                 ) : (
                     <div className='md:flex justify-center items-end w-full text-center'>
                         <Image src={diary} className='w-full h-full md:h-screen' alt='Image' />
-                        <button onClick={handleDiary} className='md:absolute bg-diary text-white md:bg-white md:text-diary px-4 py-2 rounded-lg z-10 my-10 underline flex items-center mx-auto gap-3'>
+                        <button onClick={handleDiary} className='md:absolute bg-diary text-white md:bg-white md:text-diary px-4 py-2 rounded-lg z-10 my-10 underline flex items-center mx-auto gap-3 animate-bounce'>
                             <span>
-                                <FaPencilAlt className='text-xl' />
+                                <FaPencilAlt className='text-xl animate-pulse' />
                             </span>
                             Open Today's Diary
                         </button>

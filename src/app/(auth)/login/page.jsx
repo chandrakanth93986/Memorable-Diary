@@ -47,8 +47,8 @@ const Login = () => {
         return toast.error('Login Failed!')
       }
       if (result?.url) {
-        toast.success('Login Successful!')
         router.push("/personal-space");
+        toast.success('Login Successful!')
       }
     } catch (error) {
       console.log(error);

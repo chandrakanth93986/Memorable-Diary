@@ -1,0 +1,20 @@
+.diary1{
+    background-image: url('../../../../public/diary2.jpeg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: left;
+    /* #6E260E */
+}
+
+.diary2{
+    background-image: url('../../../../public/public.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: left;
+}
+
+.fav{
+    position: absolute;
+    top: 1;
+    right: 1;
+}
