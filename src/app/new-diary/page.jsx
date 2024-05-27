@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import dynamic from 'next/dynamic'
 import { useSession } from 'next-auth/react'
 import { useForm } from 'react-hook-form'
@@ -14,6 +14,7 @@ import { useRouter } from 'next/navigation'
 import { FaCrown } from "react-icons/fa";
 import { FaHandPointRight } from "react-icons/fa";
 import axios from 'axios'
+import Link from 'next/link'
 
 const NewDiary = () => {
     const editor = useRef(null)
@@ -39,7 +40,8 @@ const NewDiary = () => {
         if (desc === '') {
             return toast.error('Please Make Your Diary!')
         }
-        const contentText = Jodit.modules.Helpers.stripTags(desc);
+        // const contentText = Jodit.modules.Helpers.stripTags(desc);
+        const contentText = desc
         formObj.favourite = favourite
         formObj.content = contentText
         formObj.publicMode = pub
@@ -47,7 +49,7 @@ const NewDiary = () => {
         console.log(formObj)
         try {
             const response = await axios.post('/api/new-diary', formObj);
-            if (response.data.success === true || response.status<300) {
+            if (response.data.success === true || response.status < 300) {
                 toast.success(response.data.message)
                 router.push('/diaries/all-diaries')
             }
@@ -61,11 +63,12 @@ const NewDiary = () => {
         setFavourite(!favourite)
     }
 
-    const config = {
+    const config = useMemo(() => ({
         readonly: false, // all options from https://xdsoft.net/jodit/docs/,
-        placeholder: 'Start Your Journey...',
-        height: 600
-    }
+        // placeholder: 'Start Your Journey...',
+        height: 600,
+        enter: 'br'
+    }), [])
 
     const toggleVisibility = () => {
         setPub(!pub)
@@ -81,8 +84,20 @@ const NewDiary = () => {
     if (status === 'loading') {
         return <div className='h-screen bg-diary text-white text-3xl flex justify-center items-center'>Loading...</div>
     }
+
     return (
         <div>
+            <div className='bg-burlywood p-4 flex flex-col md:flex-row gap-5 justify-center items-center'>
+                <Link href={'/diaries/all-diaries'}>
+                    <button className='bg-diary text-white px-4 py-2 rounded-lg'>ALL</button>
+                </Link>
+                <Link href={'/diaries/all-diaries/favourite-diaries'}>
+                    <button className='bg-diary text-white px-4 py-2 rounded-lg'>FAVOURITE</button>
+                </Link>
+                <Link href={'/diaries/all-diaries/my-public-diaries'}>
+                    <button className='bg-diary text-white px-4 py-2 rounded-lg'>MY PUBLIC DIARIES</button>
+                </Link>
+            </div>
             <div className='body-personal flex justify-center p-8' style={{ minHeight: '100vh' }}>
                 <form onSubmit={handleSubmit(handleFormSubmit)} className='diary-form p-3 bg-white text-gray-900 rounded-2xl block mx-auto w-[100vw] md:w-[70vw]'>
                     <div className='p-4 flex flex-col md:flex-row items-center justify-between'>

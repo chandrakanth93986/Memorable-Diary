@@ -5,12 +5,13 @@ import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import './allDiaries.css'
 import Image from 'next/image'
-import { FaCrown } from "react-icons/fa";
+import { FaCrown, FaPencilAlt } from "react-icons/fa";
 import logo from '../../../../public/logo.webp'
 import crown from '../../../../public/crown.jpeg'
+import Link from 'next/link'
+import { Jodit } from 'jodit-react'
 
 const AllDiaries = () => {
-  const navigate = useRouter()
   const session = useSession();
   const status = session.status
   const router = useRouter()
@@ -38,6 +39,7 @@ const AllDiaries = () => {
       }
       setFav(arr)
       setPub(a)
+      // setContent(Jodit.modules.Helpers.stripTags(response.data?.diaries[i]))
       console.log(response)
     } catch (error) {
       console.log(error)
@@ -61,7 +63,7 @@ const AllDiaries = () => {
     setOpen(!open)
     setIndex(index)
     setTimeout(() => {
-      navigate.push('/new-diary')
+      router.push(`/diaries/edit-diary/${diaries.length - index - 1}`)
     }, 500);
   }
 
@@ -80,11 +82,31 @@ const AllDiaries = () => {
 
   return (
     <div className=''>
-      {/* <Image src={crown} alt='Crown' width={200} className='text-center mx-auto' /> */}
+      <div className='bg-burlywood p-4 flex flex-col md:flex-row gap-5 justify-between items-center'>
+        <div className='flex flex-col md:flex-row gap-5 justify-between items-center'>
+          <Link href={'/diaries/all-diaries'}>
+            <button className='bg-diary text-white px-4 py-2 rounded-lg'>ALL</button>
+          </Link>
+          <Link href={'/diaries/all-diaries/favourite-diaries'}>
+            <button className='bg-diary text-white px-4 py-2 rounded-lg'>FAVOURITE</button>
+          </Link>
+          <Link href={'/diaries/all-diaries/my-public-diaries'}>
+            <button className='bg-diary text-white px-4 py-2 rounded-lg'>MY PUBLIC DIARIES</button>
+          </Link>
+        </div>
+        <div>
+          <Link href={'/new-diary'}>
+            <button
+              className='bg-diary text-white px-4 py-2 rounded-lg flex gap-2 items-center'>
+              <span> <FaPencilAlt className='text-md animate-pulse' />  </span>
+              WRITE DIARY</button>
+          </Link>
+        </div>
+      </div>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 my-10 mx-auto'>
         {
           diaries.map((diary, index) => (
-            <>
+            <div key={index}>
               {
                 (pub[index] === false) ? (
                   <div key={index} className={`diary1 w-[300px] h-[400px] rounded-xl overflow-hidden mx-auto ${open === true && index === ind ? 'animate-ping' : 'animate-none'}`}>
@@ -103,7 +125,8 @@ const AllDiaries = () => {
                       </div>
                     </div>
                     <div className='flex justify-end'>
-                      <button onClick={() => handleOpen(index)} className='bg-diary text-amber-300 px-4 py-2 rounded-tl-lg rounded-bl-lg animate-bounce'><span className=' animate-pulse'>Open</span></button>
+                      <button onClick={() => handleOpen(index)} className='bg-diary text-amber-300 px-4 py-2 rounded-tl-lg rounded-bl-lg animate-bounce'><span className=' animate-pulse'>Open
+                      </span></button>
                     </div>
                     <div className="px-6 py-4 text-white">
                       <div className="font-bold text-2xl mb-2 underline">
@@ -113,7 +136,7 @@ const AllDiaries = () => {
                       </div>
                       <div className="text-base">
                         {
-                          diary.content.substring(0, 25) + "..."
+                          (Jodit.modules.Helpers.stripTags(diary.content)).substring(0, 25) + "..."
                         }
                       </div>
                     </div>
@@ -160,7 +183,7 @@ const AllDiaries = () => {
                       </div>
                       <div className="text-base text-diary">
                         {
-                          diary.content.substring(0, 25) + "..."
+                          (Jodit.modules.Helpers.stripTags(diary.content)).substring(0, 25) + "..."
                         }
                       </div>
                     </div>
@@ -183,7 +206,7 @@ const AllDiaries = () => {
                 )
               }
 
-            </>
+            </div>
           ))
         }
       </div >
