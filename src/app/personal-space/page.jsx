@@ -39,7 +39,7 @@ const PersonalSpace = () => {
 
     return (
         <div>
-            <div className='bg-burlywood p-4 flex flex-col md:flex-row gap-5 justify-between items-center'>
+            <div className='bg-burlywood px-4 py-2 flex flex-col md:flex-row gap-5 justify-between items-center'>
                 <div className='flex flex-col md:flex-row gap-5 justify-between items-center'>
                     <Link href={'/diaries/all-diaries'}>
                         <button className='bg-diary text-white px-4 py-2 rounded-lg'>ALL</button>

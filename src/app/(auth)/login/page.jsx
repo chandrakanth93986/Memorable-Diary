@@ -57,6 +57,7 @@ const Login = () => {
 
   return (
     <div className="flex items-center">
+      <div className="reg md:w-[75%] md:h-screen"></div>
       <div className="h-screen flex flex-col items-center justify-center mx-auto md:mx-4">
         {err.length > 0 && (
           <p className="text-red-500 text-center mb-4 text-xl">{err}</p>
@@ -109,13 +110,18 @@ const Login = () => {
                 Login
               </button>
             </div>
+            <div className="my-5 flex items-center justify-between">
+              <div className="h-0.5 bg-white w-[25%]">
+              </div>
+              <p className="text-center">OR</p>
+              <div className="h-0.5 bg-white w-[25%]">
+              </div>
+            </div>
 
             <SigninWithGoogle />
           </div>
         </form>
       </div>
-
-      <div className="reg md:w-[75%] md:h-screen"></div>
     </div>
   );
 };

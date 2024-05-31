@@ -37,6 +37,7 @@ const NewDiary = () => {
     }, [session, status])
 
     const handleFormSubmit = async (formObj) => {
+        formObj.preventDefault();
         if (desc === '') {
             return toast.error('Please Make Your Diary!')
         }
@@ -65,7 +66,7 @@ const NewDiary = () => {
 
     const config = useMemo(() => ({
         readonly: false, // all options from https://xdsoft.net/jodit/docs/,
-        // placeholder: 'Start Your Journey...',
+        placeholder: '',
         height: 600,
         enter: 'br'
     }), [])
@@ -87,7 +88,7 @@ const NewDiary = () => {
 
     return (
         <div>
-            <div className='bg-burlywood p-4 flex flex-col md:flex-row gap-5 justify-center items-center'>
+            <div className='bg-burlywood px-4 py-2 flex flex-col md:flex-row gap-5 justify-center items-center'>
                 <Link href={'/diaries/all-diaries'}>
                     <button className='bg-diary text-white px-4 py-2 rounded-lg'>ALL</button>
                 </Link>
@@ -131,7 +132,7 @@ const NewDiary = () => {
                         <div className=''>
                             <JoditEditor
                                 innerRef={editor}
-                                value={desc}
+                                value={desc ||''}
                                 config={config}
                                 onBlur={newContent => setDesc(newContent)}
                                 onChange={newContent => { }}

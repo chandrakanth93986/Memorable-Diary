@@ -20,7 +20,7 @@ const Navbar = () => {
 
     return (
         <div>
-            <nav className='bg-diary p-5 text-white flex justify-between items-center'>
+            <nav className='bg-diary p-4 text-white flex justify-between items-center'>
                 <div className=''>
                     <Image src={logo} width={50} height={100} alt='Logo' className='r rounded-full block m-auto' />
                 </div>

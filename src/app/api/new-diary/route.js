@@ -5,9 +5,9 @@ export async function POST(req) {
     await dbConnect();
     try {
         const body = await req.json();
-        console.log(body);
+        // console.log(body);
         const diary = await diaryModel.create(body)
-        console.log(diary);
+        // console.log(diary);
         if (!diary) {
             return Response.json(
                 {
@@ -34,7 +34,7 @@ export async function POST(req) {
         return Response.json(
             {
                 success: false,
-                message: "Storing Diary content failed!"
+                message: "Storing Diary failed!"
             },
             {
                 status: 500

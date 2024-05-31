@@ -9,6 +9,7 @@ import { FaCrown, FaPencilAlt } from "react-icons/fa";
 import logo from '../../../../../public/logo.webp'
 import { Jodit } from 'jodit-react'
 import '../../all-diaries/allDiaries.css'
+import Description from '@/components/Description'
 
 const MyPublicDiaries = ({ searchParams }) => {
     const session = useSession()
@@ -54,7 +55,7 @@ const MyPublicDiaries = ({ searchParams }) => {
         }
     }, [status, session])
 
-    if (status === 'loading') {
+    if (status === 'loading'  || diaries.length === 0) {
         return <div className='h-screen bg-diary text-white text-3xl flex justify-center items-center'>Loading...</div>
     }
 
@@ -82,27 +83,28 @@ const MyPublicDiaries = ({ searchParams }) => {
 
     return (
         <div className=''>
-            <div className='bg-burlywood p-4 flex flex-col md:flex-row gap-5 justify-between items-center'>
-        <div className='flex flex-col md:flex-row gap-5 justify-between items-center'>
-          <Link href={'/diaries/all-diaries'}>
-            <button className='bg-diary text-white px-4 py-2 rounded-lg'>ALL</button>
-          </Link>
-          <Link href={'/diaries/all-diaries/favourite-diaries'}>
-            <button className='bg-diary text-white px-4 py-2 rounded-lg'>FAVOURITE</button>
-          </Link>
-          <Link href={'/diaries/all-diaries/my-public-diaries'}>
-            <button className='bg-diary text-white px-4 py-2 rounded-lg'>MY PUBLIC DIARIES</button>
-          </Link>
-        </div>
-        <div>
-          <Link href={'/new-diary'}>
-            <button
-              className='bg-diary text-white px-4 py-2 rounded-lg flex gap-2 items-center'>
-              <span> <FaPencilAlt className='text-md animate-pulse' />  </span>
-              WRITE DIARY</button>
-          </Link>
-        </div>
-      </div>
+            <div className='bg-burlywood px-4 py-2 flex flex-col md:flex-row gap-5 justify-between items-center'>
+                <div className='flex flex-col md:flex-row gap-5 justify-between items-center'>
+                    <Link href={'/diaries/all-diaries'}>
+                        <button className='bg-diary text-white px-4 py-2 rounded-lg'>ALL</button>
+                    </Link>
+                    <Link href={'/diaries/all-diaries/favourite-diaries'}>
+                        <button className='bg-diary text-white px-4 py-2 rounded-lg'>FAVOURITE</button>
+                    </Link>
+                    <Link href={'/diaries/all-diaries/my-public-diaries'}>
+                        <button className='bg-diary text-white px-4 py-2 rounded-lg'>MY PUBLIC DIARIES</button>
+                    </Link>
+                </div>
+                <div>
+                    <Link href={'/new-diary'}>
+                        <button
+                            className='bg-diary text-white px-4 py-2 rounded-lg flex gap-2 items-center'>
+                            <span> <FaPencilAlt className='text-md animate-pulse' />  </span>
+                            WRITE DIARY</button>
+                    </Link>
+                </div>
+            </div>
+            <Description />
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 my-10 mx-auto'>
                 {
                     diaries.map((diary, index) => {
@@ -144,12 +146,12 @@ const MyPublicDiaries = ({ searchParams }) => {
                                             <div className=" bg-gray-200 rounded-md px-3 py-1 text-xl font-semibold text-gray-700 mr-2 mb-2 flex gap-5">
                                                 <div>
                                                     {
-                                                        ISOtoUTC(diary.updatedAt)
+                                                        ISOtoUTC(diary.createdAt)
                                                     }
                                                 </div>
                                                 <div>
                                                     {
-                                                        getTime(diary.updatedAt)
+                                                        getTime(diary.createdAt)
                                                     }
                                                     (time)
                                                 </div>

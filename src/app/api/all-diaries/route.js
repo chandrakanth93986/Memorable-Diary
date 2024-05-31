@@ -8,9 +8,9 @@ export async function GET() {
     try {
         const data = await getServerSession(authOptions)
         const diaries = await diaryModel.find({ email: data.user?.email })
-        console.log(diaries)
+        // console.log(diaries)
 
-        console.log(data)
+        // console.log(data)
         if (!data) {
             return Response.json(
                 {

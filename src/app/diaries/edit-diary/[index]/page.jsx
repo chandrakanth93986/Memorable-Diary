@@ -26,13 +26,14 @@ const EditDiary = () => {
   const [ind, setInd] = useState(params[params.length - 1])
 
   let editor = useRef(null)
-  const [desc, setDesc] = useState('')
+  const [desc, setDesc] = useState(diary.content || '')
   let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
   let day = new Date().getDay();
-  const [pub, setPub] = useState(false)
-  const [favourite, setFavourite] = useState(false)
+  const [pub, setPub] = useState(diary.publicMode || false)
+  const [favourite, setFavourite] = useState(diary.favourite || false)
   let { register, handleSubmit, formState: { errors } } = useForm()
-  const [title, setTitle] = useState('')
+  const [title, setTitle] = useState(diary.title || '')
+  const [id, setId] = useState()
 
   const getDiaries = async () => {
     try {
@@ -45,6 +46,8 @@ const EditDiary = () => {
       console.log(array[ind]);
       setFavourite(array[ind].favourite)
       setTitle(array[ind].title)
+      setId(array[ind]._id)
+      setDesc(array[ind].content)
       console.log(response)
     } catch (error) {
       console.log(error)
@@ -63,26 +66,23 @@ const EditDiary = () => {
 
 
   const handleFormSubmit = async (formObj) => {
-    if (desc === '') {
-      return toast.error('Please Make Your Diary!')
-    }
-    // const contentText = Jodit.modules.Helpers.stripTags(desc);
     const contentText = desc;
     formObj.favourite = favourite
     formObj.content = contentText
     formObj.publicMode = pub
     formObj.email = session.data?.user?.email
-    console.log(formObj)
-    // try {
-    //   const response = await axios.post('/api/new-diary', formObj);
-    //   if (response.data.success === true || response.status < 300) {
-    //     toast.success(response.data.message)
-    //     router.push('/diaries/all-diaries')
-    //   }
-    // } catch (error) {
-    //   console.log(error)
-    //   toast.error(error.response.data.message)
-    // }
+    formObj.title = title
+    formObj._id = id
+    try {
+      const response = await axios.put('/api/edit-diary', formObj);
+      if (response.data.success === true || response.status < 300) {
+        toast.success(response.data.message)
+        router.push('/diaries/all-diaries')
+      }
+    } catch (error) {
+      console.log(error)
+      toast.error(error.response.data.message)
+    }
   }
 
   const handleCrown = () => {
@@ -91,7 +91,7 @@ const EditDiary = () => {
 
   const config = useMemo(() => ({
     readonly: false, // all options from https://xdsoft.net/jodit/docs/,
-    // placeholder: 'Start Your Journey...',
+    placeholder: '',
     height: 600,
     enter: 'br',
   }), [])
@@ -154,7 +154,7 @@ const EditDiary = () => {
               <div className=''>
                 <JoditEditor
                   innerRef={editor}
-                  value={diary.content}
+                  value={diary.content || ''}
                   config={config}
                   onBlur={newContent => setDesc(newContent)}
                   onChange={newContent => { }}

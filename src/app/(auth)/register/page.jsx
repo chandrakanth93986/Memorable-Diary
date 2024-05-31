@@ -39,8 +39,6 @@ const Register = () => {
 
   return (
     <div className='flex items-center'>
-      <div className='reg md:w-[75%] md:h-screen rounded--full'>
-      </div>
       <div className='h-screen flex flex-col items-center justify-center mx-auto md:mx-4'>
         {
           err.length > 0 && <p className='text-red-500 text-center mb-4 text-xl'>{err}</p>
@@ -83,6 +81,8 @@ const Register = () => {
             </div>
           </div>
         </form>
+      </div>
+      <div className='reg md:w-[75%] md:h-screen rounded--full'>
       </div>
     </div>
   )

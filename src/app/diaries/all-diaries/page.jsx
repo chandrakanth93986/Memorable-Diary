@@ -10,6 +10,7 @@ import logo from '../../../../public/logo.webp'
 import crown from '../../../../public/crown.jpeg'
 import Link from 'next/link'
 import { Jodit } from 'jodit-react'
+import Description from '@/components/Description'
 
 const AllDiaries = () => {
   const session = useSession();
@@ -55,7 +56,7 @@ const AllDiaries = () => {
     }
   }, [status, session])
 
-  if (status === 'loading') {
+  if (status === 'loading' || diaries.length === 0) {
     return <div className='h-screen bg-diary text-white text-3xl flex justify-center items-center'>Loading...</div>
   }
 
@@ -82,7 +83,7 @@ const AllDiaries = () => {
 
   return (
     <div className=''>
-      <div className='bg-burlywood p-4 flex flex-col md:flex-row gap-5 justify-between items-center'>
+      <div className='bg-burlywood px-4 py-2 flex flex-col md:flex-row gap-5 justify-between items-center'>
         <div className='flex flex-col md:flex-row gap-5 justify-between items-center'>
           <Link href={'/diaries/all-diaries'}>
             <button className='bg-diary text-white px-4 py-2 rounded-lg'>ALL</button>
@@ -102,6 +103,9 @@ const AllDiaries = () => {
               WRITE DIARY</button>
           </Link>
         </div>
+      </div>
+      <div>
+        <Description />
       </div>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 my-10 mx-auto'>
         {
@@ -144,12 +148,12 @@ const AllDiaries = () => {
                       <div className=" bg-gray-200 rounded-md px-3 py-1 text-xl font-semibold text-gray-700 mr-2 mb-2 flex gap-5">
                         <div>
                           {
-                            ISOtoUTC(diary.updatedAt)
+                            ISOtoUTC(diary.createdAt)
                           }
                         </div>
                         <div>
                           {
-                            getTime(diary.updatedAt)
+                            getTime(diary.createdAt)
                           }
                           (time)
                         </div>
@@ -191,12 +195,12 @@ const AllDiaries = () => {
                       <div className=" bg-diary rounded-md px-3 py-1 text-xl font-semibold text-white mr-2 mb-2 flex gap-5">
                         <div>
                           {
-                            ISOtoUTC(diary.updatedAt)
+                            ISOtoUTC(diary.createdAt)
                           }
                         </div>
                         <div>
                           {
-                            getTime(diary.updatedAt)
+                            getTime(diary.createdAt)
                           }
                           (time)
                         </div>
