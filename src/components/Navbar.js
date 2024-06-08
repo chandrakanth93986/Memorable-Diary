@@ -27,7 +27,7 @@ const Navbar = () => {
                 {
                     session.status === 'authenticated' ? (
                         <div className='text-center'>
-                            <button onClick={handleSignout} className='px-4 py-2 bg-white text-diary rounded-md'>Sign Out</button>
+                            <button onClick={handleSignout} className='px-4 py-2 bg-burlywood text-black rounded-md'>Sign Out</button>
                         </div>
                     ) : (
                         <div>

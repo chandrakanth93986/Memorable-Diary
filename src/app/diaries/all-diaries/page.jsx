@@ -86,19 +86,19 @@ const AllDiaries = () => {
       <div className='bg-burlywood px-4 py-2 flex flex-col md:flex-row gap-5 justify-between items-center'>
         <div className='flex flex-col md:flex-row gap-5 justify-between items-center'>
           <Link href={'/diaries/all-diaries'}>
-            <button className='bg-diary text-white px-4 py-2 rounded-lg'>ALL</button>
+            <button className='bg-diary text-burlywood px-4 py-2 rounded-lg'>ALL</button>
           </Link>
           <Link href={'/diaries/all-diaries/favourite-diaries'}>
-            <button className='bg-diary text-white px-4 py-2 rounded-lg'>FAVOURITE</button>
+            <button className='bg-diary text-burlywood px-4 py-2 rounded-lg'>FAVOURITE</button>
           </Link>
           <Link href={'/diaries/all-diaries/my-public-diaries'}>
-            <button className='bg-diary text-white px-4 py-2 rounded-lg'>MY PUBLIC DIARIES</button>
+            <button className='bg-diary text-burlywood px-4 py-2 rounded-lg'>MY PUBLIC DIARIES</button>
           </Link>
         </div>
         <div>
           <Link href={'/new-diary'}>
             <button
-              className='bg-diary text-white px-4 py-2 rounded-lg flex gap-2 items-center'>
+              className='bg-diary text-burlywood px-4 py-2 rounded-lg flex gap-2 items-center'>
               <span> <FaPencilAlt className='text-md animate-pulse' />  </span>
               WRITE DIARY</button>
           </Link>
@@ -129,7 +129,7 @@ const AllDiaries = () => {
                       </div>
                     </div>
                     <div className='flex justify-end'>
-                      <button onClick={() => handleOpen(index)} className='bg-diary text-amber-300 px-4 py-2 rounded-tl-lg rounded-bl-lg animate-bounce'><span className=' animate-pulse'>Open
+                      <button onClick={() => handleOpen(index)} className='bg-diaryTag text-amber-300 px-4 py-2 rounded-tl-lg rounded-bl-lg animate-bounce'><span className=' animate-pulse'>Open
                       </span></button>
                     </div>
                     <div className="px-6 py-4 text-white">
@@ -177,22 +177,22 @@ const AllDiaries = () => {
                       </div>
                     </div>
                     <div className='flex justify-end'>
-                      <button onClick={() => handleOpen(index)} className='bg-diary shadow-lg text-amber-300 px-4 py-2 rounded-tl-lg rounded-bl-lg animate-bounce'><span className=' animate-pulse'>Open</span></button>
+                      <button onClick={() => handleOpen(index)} className='bg-diaryTag shadow-lg text-amber-300 px-4 py-2 rounded-tl-lg rounded-bl-lg animate-bounce'><span className=' animate-pulse'>Open</span></button>
                     </div>
                     <div className="px-6 py-4 text-white">
-                      <div className="font-bold text-2xl mb-2 underline text-diary">
+                      <div className="font-bold text-2xl mb-2 underline text-diaryTag">
                         {
                           diary.title.substring(0, 15) + "..."
                         }
                       </div>
-                      <div className="text-base text-diary">
+                      <div className="text-base text-diaryTag">
                         {
                           (Jodit.modules.Helpers.stripTags(diary.content)).substring(0, 25) + "..."
                         }
                       </div>
                     </div>
                     <div className="px-6 pb-2 pt-2 flex justify-start">
-                      <div className=" bg-diary rounded-md px-3 py-1 text-xl font-semibold text-white mr-2 mb-2 flex gap-5">
+                      <div className=" bg-diaryTag rounded-md px-3 py-1 text-xl font-semibold text-white mr-2 mb-2 flex gap-5">
                         <div>
                           {
                             ISOtoUTC(diary.createdAt)
