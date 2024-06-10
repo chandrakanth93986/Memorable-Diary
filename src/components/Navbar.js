@@ -13,10 +13,10 @@ const Navbar = () => {
     const router = useRouter()
     const path = usePathname();
     const session = useSession();
-    const handleSignout = async() => {
+    const handleSignout = async () => {
         await signOut()
         router.push('/')
-      }
+    }
 
     return (
         <div>
@@ -40,6 +40,9 @@ const Navbar = () => {
                                 </li>
                                 <li>
                                     <Link href={'/login'} className={`${path === '/login' ? 'rounded-lg bg-white text-diary border px-4 py-2' : 'text-white'}`}>Login</Link>
+                                </li>
+                                <li>
+                                    <Link href={'/public-diaries'} className={`${path === '/public-diaries' ? 'rounded-lg bg-white text-diary border px-4 py-2' : 'text-white'}`}>Public-Diaries</Link>
                                 </li>
                             </ul>
                         </div>
