@@ -37,7 +37,7 @@ const NewDiary = () => {
     }, [session, status])
 
     const handleFormSubmit = async (formObj) => {
-        formObj.preventDefault();
+        // formObj.preventDefault();
         if (desc === '') {
             return toast.error('Please Make Your Diary!')
         }
