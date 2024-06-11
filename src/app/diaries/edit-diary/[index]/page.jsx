@@ -23,16 +23,16 @@ const EditDiary = () => {
   const [diaries, setDiaries] = useState([])
   const [diary, setDiary] = useState({})
   const params = usePathname()
-  const [ind, setInd] = useState(params[params.length - 1])
+  const [ind, setInd] = useState()
 
   let editor = useRef(null)
-  const [desc, setDesc] = useState(diary.content || '')
+  const [desc, setDesc] = useState(diary?.content || '')
   let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
   let day = new Date().getDay();
-  const [pub, setPub] = useState(diary.publicMode || false)
-  const [favourite, setFavourite] = useState(diary.favourite || false)
+  const [pub, setPub] = useState(diary?.publicMode || false)
+  const [favourite, setFavourite] = useState(diary?.favourite || false)
   let { register, handleSubmit, formState: { errors } } = useForm()
-  const [title, setTitle] = useState(diary.title || '')
+  const [title, setTitle] = useState(diary?.title || '')
   const [id, setId] = useState()
 
   const getDiaries = async () => {
@@ -40,14 +40,13 @@ const EditDiary = () => {
       const response = await axios.get('/api/all-diaries');
       let array = response.data?.diaries
       setDiaries(array)
-      setInd(params[params.length - 1])
-      setDiary(array[ind]);
-      setPub(array[ind].publicMode)
-      console.log(array[ind]);
-      setFavourite(array[ind].favourite)
-      setTitle(array[ind].title)
-      setId(array[ind]._id)
-      setDesc(array[ind].content)
+      setInd((params.split('/')[3]))
+      setDiary(array[params.split('/')[3]]);
+      setPub(array[params.split('/')[3]].publicMode)
+      setFavourite(array[params.split('/')[3]].favourite)
+      setTitle(array[params.split('/')[3]].title)
+      setId(array[params.split('/')[3]]._id)
+      setDesc(array[params.split('/')[3]].content)
       console.log(response)
     } catch (error) {
       console.log(error)
@@ -154,7 +153,7 @@ const EditDiary = () => {
               <div className=''>
                 <JoditEditor
                   innerRef={editor}
-                  value={diary.content || ''}
+                  value={diary?.content || ''}
                   config={config}
                   onBlur={newContent => setDesc(newContent)}
                   onChange={newContent => { }}

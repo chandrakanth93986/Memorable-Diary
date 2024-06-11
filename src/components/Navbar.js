@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { MdWavingHand } from "react-icons/md";
 
 const Navbar = () => {
     const router = useRouter()
@@ -21,12 +22,19 @@ const Navbar = () => {
     return (
         <div>
             <nav className='bg-diary p-4 text-white flex justify-between items-center'>
-                <div className=''>
-                    <Image src={logo} width={50} height={100} alt='Logo' className='r rounded-full block m-auto' />
-                </div>
+                <Link href={'/'}>
+                    <div className=''>
+                        <Image src={logo} width={50} height={100} alt='Logo' className='r rounded-full block m-auto' />
+                    </div>
+                </Link>
                 {
                     session.status === 'authenticated' ? (
-                        <div className='text-center'>
+                        <div className='text-center flex gap-5 items-center'>
+                            <div className='text-xl flex items-center justify-center'>
+                                <MdWavingHand className='text-2xl'/>
+                                &nbsp;&nbsp; <span className='text-amber-300 text-3xl font-serif'>{session.data?.user?.username || session.data?.user?.name.split(' ')[0]}</span>
+                            </div>
+                            <Link href={'/personal-space'} className={`${path === '/personal-space' ? 'rounded-md bg-burlywood text-black px-4 py-2' : 'text-white'}`}>Personal-Space</Link>
                             <button onClick={handleSignout} className='px-4 py-2 bg-burlywood text-black rounded-md'>Sign Out</button>
                         </div>
                     ) : (

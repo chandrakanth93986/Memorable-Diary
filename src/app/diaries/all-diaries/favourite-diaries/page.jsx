@@ -55,7 +55,7 @@ const FavouriteDiaries = ({ searchParams }) => {
     }
   }, [status, session])
 
-  if (status === 'loading'  || diaries.length === 0) {
+  if (status === 'loading') {
     return <div className='h-screen bg-diary text-white text-3xl flex justify-center items-center'>Loading...</div>
   }
 
