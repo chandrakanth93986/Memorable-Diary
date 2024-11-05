@@ -70,7 +70,7 @@ const PersonalSpace = () => {
                             <span>
                                 <FaPencilAlt className='text-xl animate-pulse' />
                             </span>
-                            Open Today's Diary
+                            Open Todays Diary
                         </button>
                     </div>
                 )

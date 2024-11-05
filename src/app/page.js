@@ -15,7 +15,6 @@ import { FaTabletAlt } from "react-icons/fa";
 import { WavyBackground } from "../components/ui/wavy-background";
 
 const images = [
-  "https://cdn.gencraft.com/prod/user/5a555f8f-be5f-497d-a0ad-c9f548f8ddf0/4cc1fc66-cfb1-4f8a-adf3-39c1d02616d0/image/image1_0.jpg?Expires=1719485531&Signature=rDR4ezoolFH3ov1BTZV5Ja03oEeUefpHaDtoPTClV~s-0cHFQYFAe~D42iuPr-Th2QbM7wevxAIFlF8pH0KXH0~bdZiCc2ds-tOVAPXR5W4Ea1iRSV4w5m0AGs8KnaHV2lQVBWjRsgK6yoV9aywyfn8FfLrm61irtvfS-foMuDGwstMCB-lxOnMu-iQ753i-KLt84~thvQ860KatWKnr1aTCklqoepd-fIkI~1HZSsAyxfC3N~qBPQvLTMXdL5aGXKz7~pjNxjRmcTB8kpEsQFrF6TG8tlVbhJ30TE0GzKNlNJNlGo8kHOvnhbEHybBfKk8qklBBCgSS5qtORn~v3g__&Key-Pair-Id=K3RDDB1TZ8BHT8",
   'https://img.freepik.com/free-photo/barefoot-silhouette-walking-along-tropical-waters-edge-generated-by-ai_188544-30551.jpg?size=626&ext=jpg&ga=GA1.1.1803636316.1701302400&semt=ais',
   "https://freepics.ai/files/preview/1280x853/121704307719yotncp2edmcfoiry4x3arucf7my2zqyqwzd1tsxrlzwdetnmu1ucztftrfr3majkxmcryaswimn3cw6e1naavwbfnizhdhbby3d0.jpg",
   "https://res.cloudinary.com/enchanting/q_70,f_auto,c_lfill,g_auto/exodus-web/2021/12/22219.jpg"

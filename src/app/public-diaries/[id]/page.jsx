@@ -13,7 +13,7 @@ const JoditEditor = dynamic(() => import("jodit-react"), {
 });
 import '../../new-diary/newDiary.css'
 
-const publicDiary = () => {
+const p = () => {
     const session = useSession()
     const status = session.status
     const router = useRouter()
@@ -111,4 +111,4 @@ const publicDiary = () => {
 
 }
 
-export default publicDiary
+export default p
