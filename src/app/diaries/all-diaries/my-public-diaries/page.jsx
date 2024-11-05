@@ -7,9 +7,12 @@ import axios from 'axios'
 import Image from 'next/image'
 import { FaCrown, FaPencilAlt } from "react-icons/fa";
 import logo from '../../../../../public/logo.webp'
-import { Jodit } from 'jodit-react'
+import dynamic from 'next/dynamic'
+// import { Jodit } from 'jodit-react'
 import '../../all-diaries/allDiaries.css'
 import Description from '@/components/Description'
+
+const Jodit = dynamic(() => import('jodit-react'), { ssr: false });
 
 const MyPublicDiaries = ({ searchParams }) => {
     const session = useSession()
@@ -26,6 +29,10 @@ const MyPublicDiaries = ({ searchParams }) => {
     }
     const [fav, setFav] = useState(arr)
     const [pub, setPub] = useState(a)
+
+    const stripTags = (html) => {
+        return html.replace(/<\/?[^>]+(>|$)/g, "");
+    };
 
     const getDiaries = async () => {
         try {
@@ -138,7 +145,7 @@ const MyPublicDiaries = ({ searchParams }) => {
                                             </div>
                                             <div className="text-base">
                                                 {
-                                                    (Jodit.modules.Helpers.stripTags(diary.content)).substring(0, 25) + "..."
+                                                    stripTags(diary.content).substring(0, 25) + "..."
                                                 }
                                             </div>
                                         </div>

@@ -7,10 +7,12 @@ import axios from 'axios'
 import Image from 'next/image'
 import { FaCrown, FaPencilAlt } from "react-icons/fa";
 import logo from '../../../../../public/logo.webp'
-import { Jodit } from 'jodit-react'
+import dynamic from 'next/dynamic'
+// import { Jodit } from 'jodit-react'
 import '../../all-diaries/allDiaries.css'
 import Description from '@/components/Description'
 
+const Jodit = dynamic(() => import('jodit-react'), { ssr: false });
 const FavouriteDiaries = ({ searchParams }) => {
   const session = useSession()
   const status = session.status
@@ -26,6 +28,10 @@ const FavouriteDiaries = ({ searchParams }) => {
   }
   const [fav, setFav] = useState(arr)
   const [pub, setPub] = useState(a)
+
+  const stripTags = (html) => {
+    return html.replace(/<\/?[^>]+(>|$)/g, "");
+  };
 
   const getDiaries = async () => {
     try {
@@ -83,7 +89,7 @@ const FavouriteDiaries = ({ searchParams }) => {
 
   return (
     <div className=''>
-     <div className='bg-burlywood px-4 py-2 flex flex-col md:flex-row gap-5 justify-between items-center'>
+      <div className='bg-burlywood px-4 py-2 flex flex-col md:flex-row gap-5 justify-between items-center'>
         <div className='flex flex-col md:flex-row gap-5 justify-between items-center'>
           <Link href={'/diaries/all-diaries'}>
             <button className='bg-diary text-burlywood px-4 py-2 rounded-lg'>ALL</button>
@@ -140,7 +146,7 @@ const FavouriteDiaries = ({ searchParams }) => {
                           </div>
                           <div className="text-base">
                             {
-                              (Jodit.modules.Helpers.stripTags(diary.content)).substring(0, 25) + "..."
+                              stripTags(diary.content).substring(0, 25) + "..."
                             }
                           </div>
                         </div>
@@ -187,7 +193,7 @@ const FavouriteDiaries = ({ searchParams }) => {
                           </div>
                           <div className="text-base text-diaryTag">
                             {
-                              (Jodit.modules.Helpers.stripTags(diary.content)).substring(0, 25) + "..."
+                              stripTags(diary.content).substring(0, 25) + "..."
                             }
                           </div>
                         </div>

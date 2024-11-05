@@ -9,8 +9,11 @@ import { FaCrown, FaPencilAlt } from "react-icons/fa";
 import logo from '../../../../public/logo.webp'
 import crown from '../../../../public/crown.jpeg'
 import Link from 'next/link'
-import { Jodit } from 'jodit-react'
+import dynamic from 'next/dynamic'
+// import { Jodit } from 'jodit-react'
 import Description from '@/components/Description'
+
+const Jodit = dynamic(() => import('jodit-react'), { ssr: false });
 
 const AllDiaries = () => {
   const session = useSession();
@@ -28,6 +31,10 @@ const AllDiaries = () => {
   }
   const [fav, setFav] = useState(arr)
   const [pub, setPub] = useState(a)
+
+  const stripTags = (html) => {
+    return html.replace(/<\/?[^>]+(>|$)/g, "");
+  };
 
   const getDiaries = async () => {
     try {
@@ -140,7 +147,7 @@ const AllDiaries = () => {
                       </div>
                       <div className="text-base">
                         {
-                          (Jodit.modules.Helpers.stripTags(diary.content)).substring(0, 25) + "..."
+                          stripTags(diary.content).substring(0, 25) + "..."
                         }
                       </div>
                     </div>
@@ -187,7 +194,7 @@ const AllDiaries = () => {
                       </div>
                       <div className="text-base text-diaryTag">
                         {
-                          (Jodit.modules.Helpers.stripTags(diary.content)).substring(0, 25) + "..."
+                          stripTags(diary.content).substring(0, 25) + "..."
                         }
                       </div>
                     </div>

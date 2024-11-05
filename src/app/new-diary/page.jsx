@@ -5,7 +5,6 @@ import dynamic from 'next/dynamic'
 import { useSession } from 'next-auth/react'
 import { useForm } from 'react-hook-form'
 import './newDiary.css'
-import { Jodit } from 'jodit-react'
 const JoditEditor = dynamic(() => import("jodit-react"), {
     ssr: false,
 });
@@ -132,7 +131,7 @@ const NewDiary = () => {
                         <div className=''>
                             <JoditEditor
                                 innerRef={editor}
-                                value={desc ||''}
+                                value={desc || ''}
                                 config={config}
                                 onBlur={newContent => setDesc(newContent)}
                                 onChange={newContent => { }}

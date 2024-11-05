@@ -2,7 +2,8 @@
 import axios from 'axios'
 import { useSession } from 'next-auth/react'
 import React, { useEffect, useState } from 'react'
-import { Jodit } from 'jodit-react'
+import dynamic from 'next/dynamic'
+// import { Jodit } from 'jodit-react'
 import logo from '../../../public/logo.webp'
 import Image from 'next/image'
 import '../diaries/all-diaries/allDiaries.css'
@@ -10,6 +11,8 @@ import { FaUserEdit } from "react-icons/fa";
 import { useRouter } from 'next/navigation'
 import { AuroraBackground } from "../../components/ui/aurora-background";
 import { motion } from 'framer-motion'
+
+const Jodit = dynamic(() => import('jodit-react'), { ssr: false });
 
 const PublicDiaries = () => {
     const session = useSession()
@@ -19,6 +22,9 @@ const PublicDiaries = () => {
     const [ind, setIndex] = useState()
     const router = useRouter()
 
+    const stripTags = (html) => {
+        return html.replace(/<\/?[^>]+(>|$)/g, "");
+    };
 
     const getDiaries = async () => {
         try {
@@ -104,7 +110,7 @@ const PublicDiaries = () => {
                                                 </div>
                                                 <div className="text-base">
                                                     {
-                                                        (Jodit.modules.Helpers.stripTags(diary.content)).substring(0, 25) + "..."
+                                                        stripTags(diary.content).substring(0, 25) + "..."
                                                     }
                                                 </div>
                                             </div>
