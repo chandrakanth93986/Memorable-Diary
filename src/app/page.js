@@ -25,7 +25,10 @@ export default function Home() {
   const status = session.status
 
   if (status === 'loading') {
-    return <div className='h-screen bg-diary text-white text-3xl flex justify-center items-center'>Loading...</div>
+    return
+    (
+      <div className='h-screen bg-diary text-white text-3xl flex justify-center items-center'>Loading...</div>
+    )
   }
   const word1 = "Today's Journey"
   const word2 = 'may be the best Memory'
