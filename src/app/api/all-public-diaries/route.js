@@ -5,6 +5,7 @@ export async function GET() {
     await dbConnect();
     try {
         const publicDiaries = await diaryModel.find({ publicMode: true })
+        console.log(publicDiaries);
         return Response.json(
             {
                 success: true,
